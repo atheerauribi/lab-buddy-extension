@@ -16,6 +16,14 @@
       {
         "command": "lab-buddy.helloWorld",
         "title": "Hello World"
+      },
+      {
+        "command": "lab-buddy.openLabInstructions",
+        "title": "Open Lab Instructions"
+      },
+      {
+        "command": "lab-buddy.launchVNC",
+        "title": "Launch VNC"
       }
     ]
   },
