@@ -22,7 +22,7 @@ export function activate(context: vscode.ExtensionContext) {
 
 	let launchVncCmd = vscode.commands.registerCommand('lab-buddy.launchVNC', () => {
 		vscode.window.showInformationMessage('Launching VNC Viewer...');
-		vscode.env.openExternal(vscode.Uri.parse(`localhost:${VNC_PORT}`));
+		vscode.env.openExternal(vscode.Uri.parse(`https://localhost:${VNC_PORT}`));
 	})
 
 	context.subscriptions.push(helloWorldCmd);
