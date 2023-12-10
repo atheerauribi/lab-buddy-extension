@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-const pdf2md = require('@opendocsg/pdf2md');
+// const pdf2md = require('@opendocsg/pdf2md');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
