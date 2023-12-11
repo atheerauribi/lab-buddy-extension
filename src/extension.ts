@@ -3,7 +3,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-// const pdf2md = require('@opendocsg/pdf2md');
+const pdf2md = require('@opendocsg/pdf2md');
 
 // This method is called when your extension is activated
 // Your extension is activated the very first time the command is executed
@@ -11,17 +11,16 @@ export function activate(context: vscode.ExtensionContext) {
 	const VNC_PORT = 5900;
 
 		//helper function that converts a pdf file in root directory to a markdown file
-		// async function convertPdfToMd (pdfPath: string) {
-		// 	//use pdf2md library to convert pdf in root folder to instructions.md markdown file, fully replacing it
+		async function convertPdfToMd (pdfPath: string) {
+			//use pdf2md library to convert pdf in root folder to instructions.md markdown file, fully replacing it
 
-		// 	const pdfBuffer = fs.readFileSync(pdfPath);
-		// 	console.log("converting instructions to markdown...");
-		// 	pdf2md(pdfBuffer).then((text: any) => {
-		// 		// Write the markdown file to the root directory
-		// 		fs.writeFileSync(path.join(vscode.workspace.workspaceFolders?.[0].uri.fsPath!, 'instructions.md'), text);
-		// 	})		
-		// }
-	// Create a status bar item
+			const pdfBuffer = fs.readFileSync(pdfPath);
+			console.log("converting instructions to markdown...");
+			pdf2md(pdfBuffer).then((text: any) => {
+				// Write the markdown file to the root directory
+				fs.writeFileSync(path.join(vscode.workspace.workspaceFolders?.[0].uri.fsPath!, 'instructions.md'), text);
+			})		
+		}
 
 
 
@@ -29,12 +28,13 @@ export function activate(context: vscode.ExtensionContext) {
 		vscode.window.showInformationMessage('Opening Lab Instructions...');
 		// Get the path to the root of the workspace
 		const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
+		const instructionsPath = path.join(rootPath!, 'instructions.md');
 
 		// check if there is a pdf file in the root directory
 		// if there is, convert it to a markdown file using convertPdfToMd()
-		// if (fs.existsSync(path.join(rootPath!, 'instructions.pdf'))) {
-		// 	await convertPdfToMd(path.join(rootPath!, 'instructions.pdf'));
-		// }	
+		if (fs.existsSync(path.join(rootPath!, 'instructions.pdf'))) {
+			await convertPdfToMd(path.join(rootPath!, 'instructions.pdf'));
+		}	
 
         if (rootPath) {
             // Construct the path to the README.md file
@@ -57,18 +57,18 @@ export function activate(context: vscode.ExtensionContext) {
             }
 
 			// // Check if the instructions.md file exists
-			// if (fs.existsSync(instructionsPath)) {
-			// 	// Read the contents of the instructions.md file
-			// 	const instructionsContent = fs.readFileSync(instructionsPath, 'utf-8');
+			if (fs.existsSync(instructionsPath)) {
+				// Read the contents of the instructions.md file
+				const instructionsContent = fs.readFileSync(instructionsPath, 'utf-8');
 
-			// 	// Show the instructions content in a preview
-			// 	vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(instructionsPath), {
-			// 		content: instructionsContent,
-			// 		title: 'instructions.md Preview'
-			// 	});
-			// } else {
-			// 	vscode.window.showErrorMessage('instructions.md file not found in the root workspace directory.');
-			// }
+				// Show the instructions content in a preview
+				vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(instructionsPath), {
+					content: instructionsContent,
+					title: 'instructions.md Preview'
+				});
+			} else {
+				vscode.window.showErrorMessage('instructions.md file not found in the root workspace directory.');
+			}
         } else {
             vscode.window.showErrorMessage('No workspace is open.');
         }
