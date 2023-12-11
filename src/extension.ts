@@ -21,6 +21,9 @@ export function activate(context: vscode.ExtensionContext) {
 		// 		fs.writeFileSync(path.join(vscode.workspace.workspaceFolders?.[0].uri.fsPath!, 'instructions.md'), text);
 		// 	})		
 		// }
+	// Create a status bar item
+
+
 
 	async function openLabInstructions() {
 		vscode.window.showInformationMessage('Opening Lab Instructions...');
@@ -126,6 +129,16 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(helloWorldCmd);
 	context.subscriptions.push(launchVncCmd);
 	context.subscriptions.push(openLabInstructionsCmd);
+
+	const myButton = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Right);
+
+    // Set properties for the button
+    myButton.text = "$(vm-running) Launch VNC";
+    myButton.tooltip = "Launch VNC Viewer in default browser";
+    myButton.command = "lab-buddy.launchVNC"; // This command should be defined in package.json
+
+	// Show the button
+	myButton.show();
 }
 
 // This method is called when your extension is deactivated
