@@ -14,11 +14,13 @@ export function activate(context: vscode.ExtensionContext) {
 		async function convertPdfToMd (pdfPath: string) {
 			//use pdf2md library to convert pdf in root folder to instructions.md markdown file, fully replacing it
 
+			vscode.window.showInformationMessage('Converting PDF to Markdown...');
 			const pdfBuffer = fs.readFileSync(pdfPath);
 			console.log("converting instructions to markdown...");
 			pdf2md(pdfBuffer).then((text: any) => {
 				// Write the markdown file to the root directory
 				fs.writeFileSync(path.join(vscode.workspace.workspaceFolders?.[0].uri.fsPath!, 'instructions.md'), text);
+				vscode.window.showInformationMessage('PDF converted to Markdown!');
 			})		
 		}
 
@@ -34,7 +36,9 @@ export function activate(context: vscode.ExtensionContext) {
 		// if there is, convert it to a markdown file using convertPdfToMd()
 		if (fs.existsSync(path.join(rootPath!, 'instructions.pdf'))) {
 			await convertPdfToMd(path.join(rootPath!, 'instructions.pdf'));
-		}	
+		} else {
+			vscode.window.showErrorMessage('instructions.pdf file not found in the root workspace directory.');
+		}
 
         if (rootPath) {
             // Construct the path to the README.md file
