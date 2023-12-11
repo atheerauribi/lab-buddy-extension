@@ -46,8 +46,9 @@ export function activate(context: vscode.ExtensionContext) {
 	// Register the command to launch VNC Viewer
 	// Opens the VNC Viewer in the default browser, directing to localhost:5900
 	let launchVncCmd = vscode.commands.registerCommand('lab-buddy.launchVNC', () => {
+		const link = 'https://vnc.kolbycantu.com/vnc/vnc.html'
 		vscode.window.showInformationMessage('Launching VNC Viewer...');
-		vscode.env.openExternal(vscode.Uri.parse(`https://localhost:${VNC_PORT}`));
+		vscode.env.openExternal(vscode.Uri.parse(link));
 	})
 
 	// Register the command to open the lab instructions
