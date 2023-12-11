@@ -1,6 +1,7 @@
 {
   "name": "lab-buddy",
   "displayName": "Lab Buddy",
+  "publisher": "AtheerAuribi",
   "description": "",
   "version": "0.0.1",
   "engines": {
