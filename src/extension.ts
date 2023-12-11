@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 
         if (rootPath) {
             // Construct the path to the README.md file
-            const readmePath = path.join(rootPath, 'README.md');
+            const readmePath = path.join(rootPath, 'instructions.md');
 			// const instructionsPath = path.join(rootPath, 'instructions.md');
 
             // Check if the README.md file exists
@@ -27,11 +27,11 @@ export function activate(context: vscode.ExtensionContext) {
                 // Show the README content in a preview
                 vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(readmePath), {
                     content: readmeContent,
-                    title: 'README.md Preview'
+                    title: 'Instructions Preview'
                 });
 		// Error Handling
             } else {
-                vscode.window.showErrorMessage('README.md file not found in the root workspace directory.');
+                vscode.window.showErrorMessage('instructions.md file not found in the root workspace directory.');
             }
 
         } else {
@@ -53,31 +53,7 @@ export function activate(context: vscode.ExtensionContext) {
 	// Register the command to open the lab instructions
 	// Opens the README.md file in a preview window
 	let openLabInstructionsCmd = vscode.commands.registerCommand('lab-buddy.openLabInstructions', () => {
-		vscode.window.showInformationMessage('Opening Lab Instructions...');
-		// Get the path to the root of the workspace
-		const rootPath = vscode.workspace.workspaceFolders?.[0].uri.fsPath;
-
-        if (rootPath) {
-            // Construct the path to the README.md file
-            const readmePath = path.join(rootPath, 'README.md');
-
-            // Check if the README.md file exists
-            if (fs.existsSync(readmePath)) {
-                // Read the contents of the README.md file
-                const readmeContent = fs.readFileSync(readmePath, 'utf-8');
-
-                // Show the README content in a preview
-                vscode.commands.executeCommand('markdown.showPreview', vscode.Uri.file(readmePath), {
-                    content: readmeContent,
-                    title: 'README.md Preview'
-                });
-		// Error Handling
-            } else {
-                vscode.window.showErrorMessage('README.md file not found in the root workspace directory.');
-            }
-        } else {
-            vscode.window.showErrorMessage('No workspace is open.');
-        }
+        openLabInstructions();
 	})
 
 
