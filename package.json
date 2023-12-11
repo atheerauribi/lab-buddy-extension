@@ -14,10 +14,6 @@
   "contributes": {
     "commands": [
       {
-        "command": "lab-buddy.helloWorld",
-        "title": "Hello World"
-      },
-      {
         "command": "lab-buddy.openLabInstructions",
         "title": "Open Lab Instructions"
       },
